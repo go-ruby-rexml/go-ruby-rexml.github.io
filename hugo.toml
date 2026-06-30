@@ -1,0 +1,31 @@
+baseURL = "https://go-ruby-rexml.github.io/"
+title = "go-ruby-rexml"
+disableKinds = ["taxonomy", "term", "RSS", "sitemap", "404"]
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[[params.phases]]
+  name = "Parse"
+  status = "ready"
+  blurb = "`ParseDocument` builds a tree of `Document` / `Element` / `Attribute` / `Text` / `Comment` / `CData` / `Instruction` (PI) / `DocType` / `XMLDecl`, preserving raw text, entities, the XML declaration and the DOCTYPE (incl. a bracketed internal subset). Malformed input returns a `*ParseError` with a byte offset, mirroring `REXML::ParseException`."
+[[params.phases]]
+  name = "DOM"
+  status = "ready"
+  blurb = "`Element{Prefix, Name, Attributes, Children, …}` with `Add` / `AddElement` / `AddAttribute` / `AddText` / `SetText`, `Elements(path)`, `EachElement`, `ChildElements`, `Text` / `GetText` / `Texts`, `ElementAt(n)` (1-based), `FirstElement`, `QName` / `ExpandedName` / `Prefix` / `NamespaceURI`, `Root` / `RootNode`. `Attributes` is an **ordered** map."
+[[params.phases]]
+  name = "Serialise"
+  status = "ready"
+  blurb = "`(*Document).ToString` (compact, REXML's `to_s`), `Write(WriteOptions)`, and the `Pretty(indent)` / `PrettyString` formatter — single-quoted attributes, local-name ordering (compact) vs source order (Pretty), exact entity escaping, numeric references, CDATA / comment / PI round-trip, and self-closing empty elements."
+[[params.phases]]
+  name = "XPath subset"
+  status = "ready"
+  blurb = "`XPathFirst` / `XPathEach` / `XPathMatch` over the common subset: absolute and descendant paths, the `*` wildcard, child and descendant axes, `@attr` / `@*` steps, the `text()` node test, and `[n]` / `[@attr]` / `[@attr='v']` predicates with REXML's per-parent position semantics."
+[[params.phases]]
+  name = "Node model"
+  status = "ready"
+  blurb = "Concrete node types mapping each `REXML::` class — `Document`, `Element`, `Attribute`, `Attributes` (ordered), `Text` (raw round-trip), `Comment`, `CData`, `Instruction`, `DocType`, `XMLDecl` — with raw-byte fidelity on round-trip."
+[[params.phases]]
+  name = "Differential oracle & coverage"
+  status = "ready"
+  blurb = "A wide XML corpus parsed and re-serialised here and by the system `ruby` (`REXML::Document.new(xml).to_s`, `Formatters::Pretty`, `REXML::XPath.match`), compared exactly via stdin/stdout binmode; 100% coverage, gofmt + go vet clean, green across all six 64-bit Go arches."
